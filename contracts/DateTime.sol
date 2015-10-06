@@ -36,6 +36,11 @@ contract DateTime {
                 return true;
         }
 
+        function leapYearsBefore(uint year) constant returns (uint) {
+                year -= 1;
+                return year / 4 - year / 100 + year / 400;
+        }
+
         function parseTimestamp(uint timestamp) internal returns (DateTime dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
@@ -44,20 +49,11 @@ contract DateTime {
                 dt.year = ORIGIN_YEAR;
 
                 // Year
-                while (true) {
-                        if (isLeapYear(dt.year)) {
-                                buf = LEAP_YEAR_IN_SECONDS;
-                        }
-                        else {
-                                buf = YEAR_IN_SECONDS;
-                        }
+                dt.year = getYear(timestamp);
+                buf = leapYearsBefore(dt.year) - leapYearsBefore(ORIGIN_YEAR);
 
-                        if (secondsAccountedFor + buf > timestamp) {
-                                break;
-                        }
-                        dt.year += 1;
-                        secondsAccountedFor += buf;
-                }
+                secondsAccountedFor += LEAP_YEAR_IN_SECONDS * buf;
+                secondsAccountedFor += YEAR_IN_SECONDS * (dt.year - ORIGIN_YEAR - buf);
 
                 // Month
                 uint8[12] monthDayCounts;
@@ -129,7 +125,27 @@ contract DateTime {
         }
 
         function getYear(uint timestamp) constant returns (uint16) {
-                return parseTimestamp(timestamp).year;
+                uint secondsAccountedFor = 0;
+                uint16 year;
+                uint numLeapYears;
+
+                // Year
+                year = uint16(ORIGIN_YEAR + timestamp / YEAR_IN_SECONDS);
+                numLeapYears = leapYearsBefore(year) - leapYearsBefore(ORIGIN_YEAR);
+
+                secondsAccountedFor += LEAP_YEAR_IN_SECONDS * numLeapYears;
+                secondsAccountedFor += YEAR_IN_SECONDS * (year - ORIGIN_YEAR - numLeapYears);
+
+                while (secondsAccountedFor > timestamp) {
+                        if (isLeapYear(uint16(year - 1))) {
+                                secondsAccountedFor -= LEAP_YEAR_IN_SECONDS;
+                        }
+                        else {
+                                secondsAccountedFor -= YEAR_IN_SECONDS;
+                        }
+                        year -= 1;
+                }
+                return year;
         }
 
         function getMonth(uint timestamp) constant returns (uint16) {

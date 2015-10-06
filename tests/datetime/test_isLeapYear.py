@@ -17,7 +17,7 @@ LEAP_YEARS = {
     'year', range(1970, 2401),
 )
 def test_is_leap_year(deployed_contracts, year):
-    crontab = deployed_contracts.Crontab
+    crontab = deployed_contracts.DateTime
     if year in LEAP_YEARS:
         assert crontab.isLeapYear(year) is True
     else:
