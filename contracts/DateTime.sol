@@ -141,19 +141,19 @@ contract DateTime {
         }
 
         function getHour(uint timestamp) constant returns (uint16) {
-                return parseTimestamp(timestamp).hour;
+                return uint16((timestamp / 60 / 60) % 24);
         }
 
         function getMinute(uint timestamp) constant returns (uint16) {
-                return parseTimestamp(timestamp).minute;
+                return uint16((timestamp / 60) % 60);
         }
 
         function getSecond(uint timestamp) constant returns (uint16) {
-                return parseTimestamp(timestamp).second;
+                return uint16(timestamp % 60);
         }
 
         function getWeekday(uint timestamp) constant returns (uint8) {
-                return parseTimestamp(timestamp).weekday;
+                return uint8((timestamp / DAY_IN_SECONDS + 3) % 7);
         }
 
         function toTimestamp(uint16 year, uint8 month, uint8 day) constant returns (uint timestamp) {
