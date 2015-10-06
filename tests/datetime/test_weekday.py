@@ -22,6 +22,6 @@ import pytest
     ),
 )
 def test_get_weekday_from_timestamp(deployed_contracts, timestamp, weekday):
-    crontab = deployed_contracts.Crontab
+    crontab = deployed_contracts.DateTime
     assert crontab.getWeekday(timestamp) == weekday
 

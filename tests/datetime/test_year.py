@@ -867,5 +867,5 @@ import pytest
 )
 )
 def test_get_year_from_timestamp(deployed_contracts, timestamp, year):
-    crontab = deployed_contracts.Crontab
+    crontab = deployed_contracts.DateTime
     assert crontab.getYear(timestamp) == year
