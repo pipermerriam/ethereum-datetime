@@ -3,7 +3,7 @@
 Contract which implements utilities for working with datetime values in
 ethereum.
 
-Contract Address: 0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce
+Contract Address: `0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce`
 
 Compiled with:
 
