@@ -1,4 +1,0 @@
-contract Example {
-        function Example() {
-        }
-}
