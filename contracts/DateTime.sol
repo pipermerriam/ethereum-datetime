@@ -146,7 +146,7 @@ contract DateTime {
         }
 
         function getWeekday(uint timestamp) constant returns (uint8) {
-                return uint8((timestamp / DAY_IN_SECONDS + 3) % 7);
+                return uint8((timestamp / DAY_IN_SECONDS + 4) % 7);
         }
 
         function toTimestamp(uint16 year, uint8 month, uint8 day) constant returns (uint timestamp) {
