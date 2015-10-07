@@ -61,8 +61,6 @@ contract DateTime {
                 uint buf;
                 uint8 i;
 
-                dt.year = ORIGIN_YEAR;
-
                 // Year
                 dt.year = getYear(timestamp);
                 buf = leapYearsBefore(dt.year) - leapYearsBefore(ORIGIN_YEAR);
