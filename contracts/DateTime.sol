@@ -41,6 +41,21 @@ contract DateTime {
                 return year / 4 - year / 100 + year / 400;
         }
 
+        function getDaysInMonth(uint8 month, uint16 year) constant returns (uint8) {
+                if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+                        return 31;
+                }
+                else if (month == 4 || month == 6 || month == 9 || month == 11) {
+                        return 30;
+                }
+                else if (isLeapYear(year)) {
+                        return 29;
+                }
+                else {
+                        return 28;
+                }
+        }
+
         function parseTimestamp(uint timestamp) internal returns (DateTime dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
@@ -56,28 +71,9 @@ contract DateTime {
                 secondsAccountedFor += YEAR_IN_SECONDS * (dt.year - ORIGIN_YEAR - buf);
 
                 // Month
-                uint8[12] monthDayCounts;
-                monthDayCounts[0] = 31;
-                if (isLeapYear(dt.year)) {
-                        monthDayCounts[1] = 29;
-                }
-                else {
-                        monthDayCounts[1] = 28;
-                }
-                monthDayCounts[2] = 31;
-                monthDayCounts[3] = 30;
-                monthDayCounts[4] = 31;
-                monthDayCounts[5] = 30;
-                monthDayCounts[6] = 31;
-                monthDayCounts[7] = 31;
-                monthDayCounts[8] = 30;
-                monthDayCounts[9] = 31;
-                monthDayCounts[10] = 30;
-                monthDayCounts[11] = 31;
-
                 uint secondsInMonth;
-                for (i = 0; i < monthDayCounts.length; i++) {
-                        secondsInMonth = DAY_IN_SECONDS * monthDayCounts[i];
+                for (i = 1; i <= 12; i++) {
+                        secondsInMonth = DAY_IN_SECONDS * getDaysInMonth(i, dt.year);
                         if (secondsInMonth + secondsAccountedFor > timestamp) {
                                 dt.month = i + 1;
                                 break;
@@ -86,7 +82,7 @@ contract DateTime {
                 }
 
                 // Day
-                for (i = 0; i < monthDayCounts[dt.month - 1]; i++) {
+                for (i = 1; i < getDaysInMonth(dt.month, dt.year); i++) {
                         if (DAY_IN_SECONDS + secondsAccountedFor > timestamp) {
                                 dt.day = i + 1;
                                 break;
@@ -95,33 +91,16 @@ contract DateTime {
                 }
 
                 // Hour
-                for (i = 0; i < 24; i++) {
-                        if (HOUR_IN_SECONDS + secondsAccountedFor > timestamp) {
-                                dt.hour = i;
-                                break;
-                        }
-                        secondsAccountedFor += HOUR_IN_SECONDS;
-                }
+                dt.hour = getHour(timestamp);
 
                 // Minute
-                for (i = 0; i < 60; i++) {
-                        if (MINUTE_IN_SECONDS + secondsAccountedFor > timestamp) {
-                                dt.minute = i;
-                                break;
-                        }
-                        secondsAccountedFor += MINUTE_IN_SECONDS;
-                }
-
-                if (timestamp - secondsAccountedFor > 60) {
-                        __throw();
-                }
+                dt.minute = getMinute(timestamp);
 
                 // Second
-                dt.second = uint8(timestamp - secondsAccountedFor);
+                dt.second = getSecond(timestamp);
 
                 // Day of week.
-                buf = timestamp / DAY_IN_SECONDS;
-                dt.weekday = uint8((buf + 3) % 7);
+                dt.weekday = getWeekday(timestamp);
         }
 
         function getYear(uint timestamp) constant returns (uint16) {
@@ -148,24 +127,24 @@ contract DateTime {
                 return year;
         }
 
-        function getMonth(uint timestamp) constant returns (uint16) {
+        function getMonth(uint timestamp) constant returns (uint8) {
                 return parseTimestamp(timestamp).month;
         }
 
-        function getDay(uint timestamp) constant returns (uint16) {
+        function getDay(uint timestamp) constant returns (uint8) {
                 return parseTimestamp(timestamp).day;
         }
 
-        function getHour(uint timestamp) constant returns (uint16) {
-                return uint16((timestamp / 60 / 60) % 24);
+        function getHour(uint timestamp) constant returns (uint8) {
+                return uint8((timestamp / 60 / 60) % 24);
         }
 
-        function getMinute(uint timestamp) constant returns (uint16) {
-                return uint16((timestamp / 60) % 60);
+        function getMinute(uint timestamp) constant returns (uint8) {
+                return uint8((timestamp / 60) % 60);
         }
 
-        function getSecond(uint timestamp) constant returns (uint16) {
-                return uint16(timestamp % 60);
+        function getSecond(uint timestamp) constant returns (uint8) {
+                return uint8(timestamp % 60);
         }
 
         function getWeekday(uint timestamp) constant returns (uint8) {
