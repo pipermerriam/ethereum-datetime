@@ -73,16 +73,16 @@ contract DateTime {
                 for (i = 1; i <= 12; i++) {
                         secondsInMonth = DAY_IN_SECONDS * getDaysInMonth(i, dt.year);
                         if (secondsInMonth + secondsAccountedFor > timestamp) {
-                                dt.month = i + 1;
+                                dt.month = i;
                                 break;
                         }
                         secondsAccountedFor += secondsInMonth;
                 }
 
                 // Day
-                for (i = 1; i < getDaysInMonth(dt.month, dt.year); i++) {
+                for (i = 1; i <= getDaysInMonth(dt.month, dt.year); i++) {
                         if (DAY_IN_SECONDS + secondsAccountedFor > timestamp) {
-                                dt.day = i + 1;
+                                dt.day = i;
                                 break;
                         }
                         secondsAccountedFor += DAY_IN_SECONDS;
