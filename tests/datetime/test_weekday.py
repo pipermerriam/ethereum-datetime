@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.mark.parametrize(
     'timestamp,weekday',
     (
@@ -22,6 +23,5 @@ import pytest
     ),
 )
 def test_get_weekday_from_timestamp(deployed_contracts, timestamp, weekday):
-    crontab = deployed_contracts.DateTime
+    crontab = deployed_contracts.DateTimeLib
     assert crontab.getWeekday(timestamp) == weekday
-

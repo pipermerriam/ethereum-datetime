@@ -1,8 +1,8 @@
-contract DateTime {
+library DateTimeLib {
         /*
          *  Date and Time utilities for ethereum contracts
          *
-         *  address: 0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce
+         *  address: TODO
          */
         struct DateTime {
                 uint16 year;
@@ -56,7 +56,7 @@ contract DateTime {
                 }
         }
 
-        function parseTimestamp(uint timestamp) internal returns (DateTime dt) {
+        function parseTimestamp(uint timestamp) returns (DateTime dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
                 uint8 i;
@@ -80,7 +80,8 @@ contract DateTime {
                 }
 
                 // Day
-                for (i = 1; i <= getDaysInMonth(dt.month, dt.year); i++) {
+                buf = getDaysInMonth(dt.month, dt.year); i++);
+                for (i = 1; i <= buf; i++) {
                         if (DAY_IN_SECONDS + secondsAccountedFor > timestamp) {
                                 dt.day = i;
                                 break;
@@ -165,37 +166,13 @@ contract DateTime {
                 uint16 i;
 
                 // Year
-                for (i = ORIGIN_YEAR; i < year; i++) {
-                        if (isLeapYear(i)) {
-                                timestamp += LEAP_YEAR_IN_SECONDS;
-                        }
-                        else {
-                                timestamp += YEAR_IN_SECONDS;
-                        }
-                }
+                numLeapYears = leapYearsBefore(year) - leapYearsBefore(ORIGIN_YEAR);
+                timestamp += LEAP_YEAR_IN_SECONDS * numLeapYears;
+                timestamp += YEAR_IN_SECONDS * (year - ORIGIN_YEAR - numLeapYears);
 
                 // Month
-                uint8[12] monthDayCounts;
-                monthDayCounts[0] = 31;
-                if (isLeapYear(year)) {
-                        monthDayCounts[1] = 29;
-                }
-                else {
-                        monthDayCounts[1] = 28;
-                }
-                monthDayCounts[2] = 31;
-                monthDayCounts[3] = 30;
-                monthDayCounts[4] = 31;
-                monthDayCounts[5] = 30;
-                monthDayCounts[6] = 31;
-                monthDayCounts[7] = 31;
-                monthDayCounts[8] = 30;
-                monthDayCounts[9] = 31;
-                monthDayCounts[10] = 30;
-                monthDayCounts[11] = 31;
-
                 for (i = 1; i < month; i++) {
-                        timestamp += DAY_IN_SECONDS * monthDayCounts[i - 1];
+                        timestamp += DAY_IN_SECONDS * getDaysInMonth(i, year);
                 }
 
                 // Day
@@ -211,10 +188,5 @@ contract DateTime {
                 timestamp += second;
 
                 return timestamp;
-        }
-
-        function __throw() {
-                uint[] arst;
-                arst[1];
         }
 }

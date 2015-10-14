@@ -1,7 +1,6 @@
 import pytest
 
 
-
 @pytest.mark.parametrize(
     'timestamp,month',
     (
@@ -62,6 +61,5 @@ import pytest
     ),
 )
 def test_get_month_from_timestamp(deployed_contracts, timestamp, month):
-    crontab = deployed_contracts.DateTime
+    crontab = deployed_contracts.DateTimeLib
     assert crontab.getMonth(timestamp) == month
-

@@ -1,5 +1,6 @@
 import pytest
 
+
 LEAP_YEARS = {
     1972, 1976, 1980, 1984, 1988, 1992, 1996, 2000, 2004, 2008, 2012, 2016,
     2020, 2024, 2028, 2032, 2036, 2040, 2044, 2048, 2052, 2056, 2060, 2064, 2068,
@@ -17,7 +18,7 @@ LEAP_YEARS = {
     'year', range(1970, 2401),
 )
 def test_is_leap_year(deployed_contracts, year):
-    crontab = deployed_contracts.DateTime
+    crontab = deployed_contracts.DateTimeLib
     if year in LEAP_YEARS:
         assert crontab.isLeapYear(year) is True
     else:
