@@ -213,9 +213,4 @@ contract DateTime {
 
                 return timestamp;
         }
-
-        function __throw() {
-                uint[] memory arst;
-                arst[1];
-        }
 }
