@@ -1,8 +1,9 @@
+pragma solidity ^0.4.7;
+
 contract DateTime {
         /*
          *  Date and Time utilities for ethereum contracts
          *
-         *  address: 0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce
          */
         struct DateTime {
                 uint16 year;
@@ -175,7 +176,7 @@ contract DateTime {
                 }
 
                 // Month
-                uint8[12] monthDayCounts;
+                uint8[12] memory monthDayCounts;
                 monthDayCounts[0] = 31;
                 if (isLeapYear(year)) {
                         monthDayCounts[1] = 29;
@@ -211,10 +212,5 @@ contract DateTime {
                 timestamp += second;
 
                 return timestamp;
-        }
-
-        function __throw() {
-                uint[] arst;
-                arst[1];
         }
 }
