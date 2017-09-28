@@ -1,11 +1,11 @@
-pragma solidity ^0.4.7;
+pragma solidity ^0.4.16;
 
 contract DateTime {
         /*
          *  Date and Time utilities for ethereum contracts
          *
          */
-        struct DateTime {
+        struct _DateTime {
                 uint16 year;
                 uint8 month;
                 uint8 day;
@@ -24,7 +24,7 @@ contract DateTime {
 
         uint16 constant ORIGIN_YEAR = 1970;
 
-        function isLeapYear(uint16 year) constant returns (bool) {
+        function isLeapYear(uint16 year) public pure returns (bool) {
                 if (year % 4 != 0) {
                         return false;
                 }
@@ -37,12 +37,12 @@ contract DateTime {
                 return true;
         }
 
-        function leapYearsBefore(uint year) constant returns (uint) {
+        function leapYearsBefore(uint year) public pure returns (uint) {
                 year -= 1;
                 return year / 4 - year / 100 + year / 400;
         }
 
-        function getDaysInMonth(uint8 month, uint16 year) constant returns (uint8) {
+        function getDaysInMonth(uint8 month, uint16 year) public pure returns (uint8) {
                 if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
                         return 31;
                 }
@@ -57,7 +57,7 @@ contract DateTime {
                 }
         }
 
-        function parseTimestamp(uint timestamp) internal returns (DateTime dt) {
+        function parseTimestamp(uint timestamp) internal pure returns (_DateTime dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
                 uint8 i;
@@ -102,7 +102,7 @@ contract DateTime {
                 dt.weekday = getWeekday(timestamp);
         }
 
-        function getYear(uint timestamp) constant returns (uint16) {
+        function getYear(uint timestamp) public pure returns (uint16) {
                 uint secondsAccountedFor = 0;
                 uint16 year;
                 uint numLeapYears;
@@ -126,43 +126,43 @@ contract DateTime {
                 return year;
         }
 
-        function getMonth(uint timestamp) constant returns (uint8) {
+        function getMonth(uint timestamp) public pure returns (uint8) {
                 return parseTimestamp(timestamp).month;
         }
 
-        function getDay(uint timestamp) constant returns (uint8) {
+        function getDay(uint timestamp) public pure returns (uint8) {
                 return parseTimestamp(timestamp).day;
         }
 
-        function getHour(uint timestamp) constant returns (uint8) {
+        function getHour(uint timestamp) public pure returns (uint8) {
                 return uint8((timestamp / 60 / 60) % 24);
         }
 
-        function getMinute(uint timestamp) constant returns (uint8) {
+        function getMinute(uint timestamp) public pure returns (uint8) {
                 return uint8((timestamp / 60) % 60);
         }
 
-        function getSecond(uint timestamp) constant returns (uint8) {
+        function getSecond(uint timestamp) public pure returns (uint8) {
                 return uint8(timestamp % 60);
         }
 
-        function getWeekday(uint timestamp) constant returns (uint8) {
+        function getWeekday(uint timestamp) public pure returns (uint8) {
                 return uint8((timestamp / DAY_IN_SECONDS + 4) % 7);
         }
 
-        function toTimestamp(uint16 year, uint8 month, uint8 day) constant returns (uint timestamp) {
+        function toTimestamp(uint16 year, uint8 month, uint8 day) public pure returns (uint timestamp) {
                 return toTimestamp(year, month, day, 0, 0, 0);
         }
 
-        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour) constant returns (uint timestamp) {
+        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour) public pure returns (uint timestamp) {
                 return toTimestamp(year, month, day, hour, 0, 0);
         }
 
-        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute) constant returns (uint timestamp) {
+        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute) public pure returns (uint timestamp) {
                 return toTimestamp(year, month, day, hour, minute, 0);
         }
 
-        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute, uint8 second) constant returns (uint timestamp) {
+        function toTimestamp(uint16 year, uint8 month, uint8 day, uint8 hour, uint8 minute, uint8 second) public pure returns (uint timestamp) {
                 uint16 i;
 
                 // Year
