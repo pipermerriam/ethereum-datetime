@@ -3,7 +3,10 @@
 Contract which implements utilities for working with datetime values in
 ethereum.
 
-Contract Address: `0x1a6184CD4C5Bea62B0116de7962EE7315B7bcBce`  
+* Contract Address (Main): `0x1a6184CD4C5Bea62B0116de7962EE7315B7bcBce`
+* Contract Address (Kovan): `0x71b6e049E78c75fC61480357CD5aA1B81E1b16E0`
+* Contract Address (Rinkeby): `0x670b2B167e13b131C491D87bA745dA41f07ecbc3`
+* Contract Address (Ropsten): `0x1F0a2ba4B115bd3e4007533C52BBd30C17E8B222`
 
 Compiled with:
 
@@ -17,7 +20,11 @@ $ solc contracts/DateTime.sol --optimize --bin
 To verify, you need to compare the code on the blockchain with the runtime code
 which can be gotten from ``solc contracts/DateTime.sol --optimize --bin-runtime``.
 
-Also you can find it already verified at https://etherscan.io/address/0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce#code
+Also you can find it already verified at:
+* (Main) https://etherscan.io/address/0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce#code
+* (Kovan) https://kovan.etherscan.io/address/0x71b6e049e78c75fc61480357cd5aa1b81e1b16e0#code
+* (Rinkeby) https://rinkeby.etherscan.io/address/0x670b2b167e13b131c491d87ba745da41f07ecbc3#code
+* (Ropsten) https://ropsten.etherscan.io/address/0x1f0a2ba4b115bd3e4007533c52bbd30c17e8b222#code
 
 ### DateTime struct
 
