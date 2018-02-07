@@ -1,6 +1,11 @@
-pragma solidity ^0.4.16;
+pragma solidity 0.4.19;
+
+import "./Math/SafeMath.sol";
 
 contract DateTime {
+
+        using SafeMath for uint256;
+
         /*
          *  Date and Time utilities for ethereum contracts
          *
@@ -23,6 +28,39 @@ contract DateTime {
         uint constant MINUTE_IN_SECONDS = 60;
 
         uint16 constant ORIGIN_YEAR = 1970;
+
+        function retrieveTimeDifferenceInDays(
+            uint256 _timeA,
+            uint256 _timeB)
+            public
+            pure
+            returns (uint256)
+        {
+            uint256 diff = _timeB - _timeA;
+            return (((diff / 60)/60)/24);
+        }
+
+        function retrieveTimeDifferenceInHours(
+            uint256 _timeA,
+            uint256 _timeB)
+            public
+            pure
+            returns (uint256)
+        {
+            uint256 diff = _timeB - _timeA;
+            return ((diff / 60)/60);
+        }
+
+        function retrieveTimeDifferenceInSeconds(
+            uint256 _timeA,
+            uint256 _timeB)
+            public
+            pure
+            returns (uint256)
+        {
+            uint256 diff = _timeB - _timeA;
+            return (diff / 60);
+        }
 
         function isLeapYear(uint16 year) public pure returns (bool) {
                 if (year % 4 != 0) {
