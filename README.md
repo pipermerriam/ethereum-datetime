@@ -3,16 +3,11 @@
 Contract which implements utilities for working with datetime values in
 ethereum.
 
-Contract Address: `0x1a6184CD4C5Bea62B0116de7962EE7315B7bcBce`  
+Contract Deployments: 
 
-Compiled with:
+- Mainnet: [`0x1a6184CD4C5Bea62B0116de7962EE7315B7bcBce`](https://etherscan.io/address/0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce)
+- Rinkeby: [`0x92482Ba45A4D2186DafB486b322C6d0B88410FE7`](https://rinkeby.etherscan.io/address/0x92482ba45a4d2186dafb486b322c6d0b88410fe7)
 
-```bash
-$ solc --version
-solc, the solidity compiler commandline interface
-Version: 0.1.3-1736fe80/RelWithDebInfo-Darwin/unknown/JIT linked to libethereum-0.9.92-dcf2fd11/RelWithDebInfo-Darwin/unknown/JIT
-$ solc contracts/DateTime.sol --optimize --bin
-```
 
 To verify, you need to compare the code on the blockchain with the runtime code
 which can be gotten from ``solc contracts/DateTime.sol --optimize --bin-runtime``.
