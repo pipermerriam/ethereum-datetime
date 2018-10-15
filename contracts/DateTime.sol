@@ -213,4 +213,62 @@ contract DateTime {
 
                 return timestamp;
         }
+        
+        function addYears(uint timestamp, uint16 addingYears) public pure returns (uint) {
+                uint16 year = getYear(timestamp);
+                for (uint16 i = 1; i < addingYears; ++i)
+                {
+                    ++year;
+                    if (isLeapYear(year))
+                        timestamp += LEAP_YEAR_IN_SECONDS;
+                    else
+                        timestamp += YEAR_IN_SECONDS;   
+                }
+                return timestamp;
+        }
+        
+        function addMonths(uint timestamp, uint16 addingMonths) public pure returns (uint) {
+                uint8 month = getMonth(timestamp);
+                uint16 year = getYear(timestamp);
+                for (uint16 i = 1; i < addingMonths; ++i)
+                {
+                    ++month;
+                    timestamp += DAY_IN_SECONDS * getDaysInMonth(month, year);
+                }
+                return timestamp;
+        }
+        
+        function addDays(uint timestamp, uint16 addingDays) public pure returns (uint) {
+                timestamp += addingDays * DAY_IN_SECONDS;
+                return timestamp;
+        }
+        
+        function subYears(uint timestamp, uint16 subtractingYears) public pure returns (uint) {
+                uint16 year = getYear(timestamp);
+                for (uint16 i = 1; i < subtractingYears; ++i)
+                {
+                    --year;
+                    if (isLeapYear(year))
+                        timestamp -= LEAP_YEAR_IN_SECONDS;
+                    else
+                        timestamp -= YEAR_IN_SECONDS;   
+                }
+                return timestamp;
+        }
+        
+        function subMonths(uint timestamp, uint16 subtractingMonths) public pure returns (uint) {
+                uint8 month = getMonth(timestamp);
+                uint16 year = getYear(timestamp);
+                for (uint16 i = 1; i < subtractingMonths; ++i)
+                {
+                    --month;
+                    timestamp -= DAY_IN_SECONDS * getDaysInMonth(month, year);
+                }
+                return timestamp;
+        }
+        
+        function subDays(uint timestamp, uint16 subtractingDays) public pure returns (uint) {
+                timestamp -= subtractingDays * DAY_IN_SECONDS;
+                return timestamp;
+        }
 }
