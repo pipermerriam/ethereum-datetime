@@ -1,8 +1,9 @@
-pragma solidity ^0.4.16;
+pragma solidity >=0.5.0 <0.6.0;
 
 contract DateTime {
         /*
          *  Date and Time utilities for ethereum contracts
+         *  Updating to version 0.5.0;
          *
          */
         struct _DateTime {
@@ -57,7 +58,7 @@ contract DateTime {
                 }
         }
 
-        function parseTimestamp(uint timestamp) internal pure returns (_DateTime dt) {
+        function parseTimestamp(uint timestamp) internal pure returns (_DateTime memory dt) {
                 uint secondsAccountedFor = 0;
                 uint buf;
                 uint8 i;
