@@ -54,6 +54,5 @@ import pytest
         (63158400, 0),
     ),
 )
-def test_get_hour_from_timestamp(deployed_contracts, timestamp, hour):
-    crontab = deployed_contracts.DateTime
+def test_get_minute_from_timestamp(crontab, timestamp, hour):
     assert crontab.getHour(timestamp) == hour
