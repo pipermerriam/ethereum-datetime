@@ -4,3 +4,8 @@ build/
 dist/
 chains/
 **/_build
+__pycache__
+.env
+.history
+.hypothesis/
+reports/

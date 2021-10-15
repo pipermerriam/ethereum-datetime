@@ -1,6 +1,8 @@
-contract DateTimeAPI {
+pragma solidity ^0.4.16;
+
+interface DateTimeAPI {
         /*
-         *  Abstract contract for interfacing with the DateTime contract.
+         *  Interface for interfacing with the DateTime contract.
          *
          */
         function isLeapYear(uint16 year) constant returns (bool);
