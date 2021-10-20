@@ -13,6 +13,5 @@ import datetime
         (datetime.datetime(2016, 3, 1), 1456790400),
     ),
 )
-def test_dt_to_timestamp(deployed_contracts, dt, timestamp):
-    crontab = deployed_contracts.DateTime
+def test_dt_to_timestamp(crontab, dt, timestamp):
     assert crontab.toTimestamp(dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second) == timestamp

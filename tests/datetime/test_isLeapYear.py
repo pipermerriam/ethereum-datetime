@@ -16,8 +16,7 @@ LEAP_YEARS = {
 @pytest.mark.parametrize(
     'year', range(1970, 2401),
 )
-def test_is_leap_year(deployed_contracts, year):
-    crontab = deployed_contracts.DateTime
+def test_is_leap_year(crontab, year):
     if year in LEAP_YEARS:
         assert crontab.isLeapYear(year) is True
     else:

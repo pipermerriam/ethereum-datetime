@@ -1,4 +1,3 @@
-
 import pytest
 
 @pytest.mark.parametrize(
@@ -128,6 +127,5 @@ import pytest
         (63075600, 0),
     ),
 )
-def test_get_minute_from_timestamp(deployed_contracts, timestamp, minute):
-    crontab = deployed_contracts.DateTime
+def test_get_minute_from_timestamp(crontab, timestamp, minute):
     assert crontab.getMinute(timestamp) == minute

@@ -59,6 +59,5 @@ import pytest
         (94694400, 1),  # Jan 1 1972
     ),
 )
-def test_get_day_from_timestamp(deployed_contracts, timestamp, day):
-    crontab = deployed_contracts.DateTime
+def test_get_day_from_timestamp(crontab, timestamp, day):
     assert crontab.getDay(timestamp) == day
