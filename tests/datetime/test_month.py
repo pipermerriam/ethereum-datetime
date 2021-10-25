@@ -61,7 +61,6 @@ import pytest
         (94694400, 1),
     ),
 )
-def test_get_month_from_timestamp(deployed_contracts, timestamp, month):
-    crontab = deployed_contracts.DateTime
+def test_get_month_from_timestamp(crontab, timestamp, month):
     assert crontab.getMonth(timestamp) == month
 

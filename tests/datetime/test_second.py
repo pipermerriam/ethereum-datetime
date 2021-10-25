@@ -67,6 +67,5 @@ import pytest
         (63072060, 0),
     ),
 )
-def test_get_second_from_timestamp(deployed_contracts, timestamp, second):
-    crontab = deployed_contracts.DateTime
+def test_get_second_from_timestamp(crontab, timestamp, second):
     assert crontab.getSecond(timestamp) == second
