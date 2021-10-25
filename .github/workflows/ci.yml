@@ -1,20 +1,19 @@
 name: "CI"
-on:
-  push:
+on: "push"
 jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-    - uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-    - name: Install Dependencies
-      run: pip install -r requirements-dev.txt
-    - name: Install Ganache
-      run: npm install -g ganache-cli
-    - name: Run Tests
-      run: brownie test
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Install Dependencies
+        run: pip install -r requirements-dev.txt
+      - name: Install Ganache
+        run: npm install -g ganache-cli
+      - name: Run Tests
+        run: brownie test
