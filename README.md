@@ -7,6 +7,7 @@ Contract Deployments:
 
 - Mainnet: [`0x1a6184CD4C5Bea62B0116de7962EE7315B7bcBce`](https://etherscan.io/address/0x1a6184cd4c5bea62b0116de7962ee7315b7bcbce)
 - Rinkeby: [`0x92482Ba45A4D2186DafB486b322C6d0B88410FE7`](https://rinkeby.etherscan.io/address/0x92482ba45a4d2186dafb486b322c6d0b88410fe7)
+- Sepolia [`0x96641ac06ca5af2211071d18a168e8c51f66519f`](https://sepolia.etherscan.io/address/0x96641ac06ca5af2211071d18a168e8c51f66519f)
 
 
 To verify, you need to compare the code on the blockchain with the runtime code
